@@ -1,0 +1,331 @@
+Installation guide X-ray data reduction software. We will be installing the full HEASOFT, Chandra, and XMM Newton software. 
+
+###############################################################################################
+1) Chandra:
+
+Full description of installation procedure, enviroment variables, and alias can be found here:
+
+http://cxc.harvard.edu/ciao/download/
+
+First, download the install script "ciao-install":
+
+> wget http://cxc.harvard.edu/ciao/ahelp/ciao-install.html
+
+DO NOT INSTALL AS ROOT OR SUPERUSER. Install in a new terminal where no other x-ray packages are initiated.
+
+> bash /<path>/<to>/<script>/ciao-install
+
+Set up an alias:
+
+cshell:
+alias ciao "source /soft/ciao-4.11/bin/ciao.csh"
+
+bash:
+alias ciao "source /soft/ciao-4.11/bin/ciao.csh"
+
+
+Common watchout items for installation an initialization can be found here:
+
+http://cxc.harvard.edu/ciao/watchout.html#install
+
+################################################################################################
+2) HEASOFT:
+
+We will be installing the full HEASOFT package through source code.This part consists of installing the source code, downloading calibration files, and setting up enviromental variables/ alias's.  
+
+Download instrutions for HEASOFT Version 6.26:
+
+https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/download.html
+
+Full instalation guide can be found here:
+
+https://heasarc.gsfc.nasa.gov/docs/software/heasoft/install.html
+
+Prerequisite software and building/initialization instructions for Debian-based linux:
+
+https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/ubuntu.html
+
+Prerequisite software and building/initialization instructions for Fedora (RPM-based) linux:
+
+https://heasarc.gsfc.nasa.gov/docs/software/heasoft/fedora.html
+
+The installation instructions of the calibration files are here:
+
+https://heasarc.gsfc.nasa.gov/docs/heasarc/caldb/docs/memos/cal_gen_94_004/cal_gen_94_004.html
+
+Calibration files are dowloaded here (It would be nice to have all telescopes since we downloaded the full software but more urgent is the installation of NuSTAR and maybe later Suzaku Calibrations):
+
+https://heasarc.gsfc.nasa.gov/docs/heasarc/caldb/caldb_supported_missions.html
+
+
+List of known issues can be found here:
+
+http://heasarc.gsfc.nasa.gov/lheasoft/issues.html
+
+
+SYSTEM NEEDS:
+
+a. More than 2GB of disk
+
+b. peral 5.6.0 or higher
+
+c. X11 
+	"   Some users may find it necessary to specify the location of their X11
+    libraries and header files to the configure script, e.g.
+
+     ./configure --x-libraries=/usr/X11R6/lib --x-includes=/usr/X11R6/include   "
+
+d. gmake
+
+e. C, C++, Fortran, Perl Compilers
+	
+	apt-get install perl-modules
+	yum install perl-ExtUtils-MakeMaker
+
+f. ncurses, curses, tinfo
+
+	apt-get install libncurses5-dev
+	yum install ncurses-devel
+
+
+
+######
+
+Prerequiste packages:
+
+#Debian
+
+sudo apt-get -y install libreadline6-dev
+sudo apt-get -y install libcurl4
+sudo apt-get -y install libcurl4-gnutls-dev
+sudo apt-get -y install libncurses5-dev
+sudo apt-get -y install xorg-dev
+sudo apt-get -y install gcc g++ gfortran
+sudo apt-get -y install perl-modules
+sudo apt-get -y install python-dev [or python3-dev]
+sudo apt-get -y install libncurses5-dev
+sudo apt-get -y install xorg-dev
+
+#Fedora
+
+sudo yum -y install ncurses-devel
+sudo yum -y install libcurl-devel
+sudo yum -y install libXt-devel
+sudo yum -y install readline6-devel
+sudo yum -y install gcc gcc-c++
+sudo yum -y install gcc gcc-gfortran   (or: "gcc gcc-fortran")
+sudo yum -y install perl-ExtUtils-MakeMaker
+sudo yum -y install python-devel [or python3-devel]
+sudo yum -y install make
+sudo yum -y install ncurses-devel
+sudo yum -y install libXt-devel
+
+#This may also be necessary on newer Fedora (e.g. Fedora 27):
+
+sudo yum -y install redhat-rpm-config
+
+#Note that the "yum" utility has been replaced by "dnf" on newer systems but the syntax is still the same.
+
+######
+Download HEASOFT6.26:
+
+wget http://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/release/heasoft-6.26src.tar.gz
+
+gunzip -c heasoft6.26(src|arch).tar.gz | tar xf -
+
+cd heasoft-6.26/BUILD_DIR/
+
+# make sure configure script will choose correct compilers. 
+# On Linux, Cygwin and Darwin, configure will by default choose the first
+#   GNU and Perl compilers (gcc, g++, gfortran/g95, perl) it finds in your
+#   path (i.e.  the PATH environment variable; see also the "which" command).
+
+    $ setenv CC /usr/bin/gcc              $ export CC=/usr/bin/gcc
+    $ setenv CXX /usr/bin/g++             $ export CXX=/usr/bin/g++
+    $ setenv FC /usr/bin/gfortran         $ export FC=/usr/bin/gfortran
+    $ setenv PERL /usr/bin/perl           $ export PERL=/usr/bin/perl
+    $ setenv PYTHON /usr/bin/python       $ export PYTHON=/usr/bin/python
+
+
+# run the main configure script
+
+./configure >& config.out &     (C Shell variants)
+./configure > config.out 2>&1 & (Bourne Shell variants)
+
+
+### NOTES ON CONFIGURE:
+
+--prefix=dir   (SOURCE CODE DISTRIBUTION ONLY)
+
+     Denotes where the libraries, executables, help files, etc.,
+     are to be installed.  NOTE that this is slightly different
+     than the sense in which "prefix" is used in GNU software,
+     in that an additional system-dependent subdirectory will
+     first be appended to the prefix argument, below which the
+     bin/, lib/, and other directories will be created.
+     If no prefix argument is supplied to configure, the default
+     is the main heasoft-6.26/ directory itself.
+
+     * In the HEADAS build environment, there are multiple layers of
+     installed directories, so if you prefer to delete the source code
+     after installing HEASOFT, it is recommended that you provide a
+     prefix to configure which installs the software outside of the
+     source code tree.
+
+     * Darwin and Cygwin:  If you perform the software installation
+     on a disk which has a space or spaces in its name, i.e.
+     "/Volumes/Apps And Docs/" or "/cygdrive/My Documents/", the
+     initialization step (referred to in step 8 below) will fail because
+     it reads that as two separate paths.  Paths with underscores are okay.
+
+   You may notice some WARNING messages in the screen output from configure,
+   and may safely ignore those from the third-party packages wcslib and itk:
+
+     wcslib:
+     configure: WARNING: Compilation of Fortran wrappers and PGSBOX disabled
+     configure: WARNING: Compilation of WCS utilities disabled
+     configure: WARNING: CFITSIO disabled
+     configure: WARNING: PGPLOT disabled
+
+     itk:
+     configure: WARNING: Found Makefile - using build library specs for itcl
+
+### DOWNLOAD AND INSTALL CALIBRATION FILES
+
+Installing all or part of the CALDB is a matter of setting up the CALDB environment variables and downloading and untarring the calibration data.
+
+setenv CALDB /local/home/user/caldb
+
+export CALDB=/local/home/user/caldb
+
+
+#Downloading and installing CALDB files:
+
+cd $CALDB
+wget https://heasarc.gsfc.nasa.gov/FTP/caldb/software/tools/caldb_setup_files.tar.Z
+tar -zxvf caldb_setup_files.tar.Z
+
+# this creates two $CALDB configuration files and an initialization file:
+
+# configuration files created:
+
+# $CALDB/software/tools/alias_config.fits
+# $CALDB/software/tools/caldb.config
+
+# initialization files created:
+
+# $CALDB/software/tools/caldbinit.csh (for unix C-shell users) 
+
+# $CALDB/software/tools/caldbinit.sh  (for Bash shell users)
+
+# open the caldbinit.csh or caldbinit.sh in a text editor and edit the firt line so that the $CALDB enviroments variables points to the CALDB directory. 
+
+# setenv CALDB /local/home/user/caldb
+
+# export CALDB=/local/home/user/caldb
+
+# include the initialization file in the .login file for each user.
+
+# source $CALDB/software/tools/caldbinit.csh
+
+# source $CALDB/software/tools/caldbinit.sh
+
+# Download the calibration files
+
+cd $CALDB
+
+#NUSTAR
+
+wget https://heasarc.gsfc.nasa.gov/FTP/caldb/data/nustar/fpm/goodfiles_nustar_fpm.tar.ascii
+wget https://heasarc.gsfc.nasa.gov/FTP/caldb/data/nustar/fpm/goodfiles_nustar_fpm.tar.gz
+wget https://heasarc.gsfc.nasa.gov/FTP/caldb/data/nustar/fpm/goodfiles_nustar_fpm_20190513.tar.gz
+wget https://heasarc.gsfc.nasa.gov/FTP/caldb/data/nustar/fpm/goodfiles_nustar_fpm_clockcor.tar.gz
+wget https://heasarc.gsfc.nasa.gov/FTP/caldb/data/nustar/fpm/goodfiles_nustar_fpm_clockcor_20190513.tar.gz
+
+# unzip all files
+
+
+# verify if caldb is running ok with FTOOLS.
+
+caldbinfo INST NUSTAR FPM
+
+caldbinfo INST NUSTAR FPMA
+
+caldbinfo INST NUSTAR FPMB
+
+### START THE BUILD PROCESS:
+
+
+make >& build.log &     (C Shell variants)
+make > build.log 2>&1 & (Bourne Shell variants)
+
+
+#you can see the build.log with
+
+tail -f build.log
+
+#exit with ctrl-c
+
+VERY IMPORTANT: Check your build.log for errors before proceeding!
+   If a problem occurs and is discovered at this point, it may be easy
+   to correct (contact the appropriate help address listed above). By
+   contrast, if an error occurs, but you continue with the next step,
+   it may make resolving the problem more complex or more time-consuming.
+
+   The easiest way to check your build.log for errors is to look
+   for occurrences of the string ***. (Most UNIX utilities which
+   use regular expression matching require these to be "escaped"
+   using backslashes, e.g. \*\*\*).  You may safely ignore references
+   in the build log to "char ***" or '...__PRETTY_FUNCTION__," ***...'
+
+
+make install >& install.log &     (C Shell variants)
+make install > install.log 2>&1 & (Bourne Shell variants)
+
+
+Check install log for errors as described above.
+
+
+## Set up enviroment to use:
+
+For users of C Shell variants (csh, tcsh):
+
+      setenv HEADAS /path/to/your/installed/heasoft-6.26/(PLATFORM)
+      source $HEADAS/headas-init.csh
+
+For users of Bourne Shell (sh, ash, ksh, and bash):
+
+      export HEADAS=/path/to/your/installed/heasoft-6.26/(PLATFORM)
+      . $HEADAS/headas-init.sh
+
+
+In the examples above, (PLATFORM) is a placeholder for the platform-
+   specific string denoting your machine's architecture, for example:
+
+      x86_64-pc-linux-gnu-libc2.29
+      x86_64-apple-darwin18.5.0
+
+### set up alias "heainit":
+
+For users of C Shell variants (csh, tcsh):
+
+      setenv HEADAS /path/to/your/installed/heasoft-6.26/(PLATFORM)
+      alias heainit "source $HEADAS/headas-init.csh"
+
+For users of Bourne Shell (sh, ash, ksh, and bash):
+
+      HEADAS=/path/to/your/installed/heasoft-6.26/(PLATFORM)
+      export HEADAS
+      alias heainit=". $HEADAS/headas-init.sh"
+
+##################################################################
+3) XMM Coming soon. 
+
+
+
+
+
+
+
+
+
