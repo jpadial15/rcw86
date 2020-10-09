@@ -13,8 +13,8 @@ dependencies:
     - requests
     - astropy
     - anaconda
-    - pandas
     - numpy
+    - pandas
     - bs4
     - scipy
     - sklearn
