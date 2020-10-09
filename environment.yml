@@ -1,0 +1,12 @@
+dependencies:
+  - anaconda
+  - numpy
+  - pandas
+  - astropy
+  - requests
+  - pip:
+    - sunpy
+    - drms
+    - zeep
+    - ruffus
+    - boto3
