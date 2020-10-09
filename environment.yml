@@ -1,12 +1,33 @@
+name: rcw86
+
+channels:
+  - conda-forge
 dependencies:
-  - anaconda
-  - numpy
-  - pandas
-  - astropy
-  - requests
+  - pip
   - pip:
     - sunpy
     - drms
     - zeep
     - ruffus
     - boto3
+    - requests
+    - astropy
+    - anaconda
+    - pandas
+    - numpy
+    - bs4
+    - scipy
+    - sklearn
+    - seaborn
+    - sunpy
+    - astropy
+    - matplotlib
+    - datetime
+    - jupyter_contrib_nbextensions
+    - IPython
+    - scipy
+    - git+https://github.com/i4Ds/IRISreader.git@master
+    - jupyterlab
+    - jupyterlab-git
+    - sqlalchemy
+    - scikit-image
