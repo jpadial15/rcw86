@@ -1,0 +1,89 @@
+
+#download data
+
+wget -q -nH --no-check-certificate --cut-dirs=6 -r -l0 -c -N -np -R 'index*' -erobots=off --retr-symlinks https://heasarc.gsfc.nasa.gov/FTP/nustar/data/obs/03/4//40301005002/
+
+wget -q -nH --no-check-certificate --cut-dirs=6 -r -l0 -c -N -np -R 'index*' -erobots=off --retr-symlinks https://heasarc.gsfc.nasa.gov/FTP/nustar/data/obs/03/4//40301005004/
+
+
+#clean data for SAA and specify output directory
+
+nupipeline indir=./ steminputs=nu40301005002 outdir=clean_data saacalc=2 saamode=optimized tentacle=yes fpma_vignfile=CALDB fpmb_vignfile=CALDB expovignflag=yes energy=10 arfvignflag=yes
+
+nupipeline indir=./ steminputs=nu40301005004 outdir=clean_data saacalc=2 saamode=optimized tentacle=yes fpma_vignfile=CALDB fpmb_vignfile=CALDB expovignflag=yes energy=10 arfvignflag=yes
+
+#make 3-20 kev images to select source and background regions
+
+./mkimgs.py ./ 40301005002 3 20
+./mkimgs.py ./ 40301005004 3 20
+
+#create spectra without arf for background from the nuskybgd program
+
+./getspecnoarf.py ./ 40301005002 bgd1A bgdspec A
+./getspecnoarf.py ./ 40301005002 bgd1B bgdspec B
+
+./getspecnoarf.py ./ 40301005004 bgd1A bgdspec A
+./getspecnoarf.py ./ 40301005004 bgd1B bgdspec B
+
+#extract spectra for specific regions withour a background spectra
+
+#002
+nuproducts indir=./ instrument=FPMA steminputs=nu40301005002 outdir=./src srcregionfile=./regA_002A.reg extended=yes rungrppha=yes grpmincounts=30 bkgextract=no stemout=regA_002A grpphafile=regA_002A_grp.pha vignfile=CALDB vignflag=yes
+nuproducts indir=./ instrument=FPMA steminputs=nu40301005002 outdir=./src srcregionfile=./regB_002A.reg   extended=yes rungrppha=yes grpmincounts=30 bkgextract=no stemout=regB_002A grpphafile=regB_002A_grp.pha vignfile=CALDB vignflag=yes
+nuproducts indir=./ instrument=FPMA steminputs=nu40301005002 outdir=./src srcregionfile=./regC_002A.reg   extended=yes rungrppha=yes grpmincounts=30 bkgextract=no stemout=regC_002A grpphafile=regC_002A_grp.pha vignfile=CALDB vignflag=yes
+
+nuproducts indir=./ instrument=FPMB steminputs=nu40301005002 outdir=./src srcregionfile=./regA_002B.reg extended=yes rungrppha=yes grpmincounts=30 bkgextract=no stemout=regA_002B grpphafile=regA_002B_grp.pha vignfile=CALDB vignflag=yes
+
+#004
+
+nuproducts indir=./ instrument=FPMA steminputs=nu40301005004 outdir=./src srcregionfile=./regA_004A.reg  extended=yes rungrppha=yes grpmincounts=30 bkgextract=no stemout=regA_004A grpphafile=regA_004A_grp.pha vignfile=CALDB vignflag=yes
+nuproducts indir=./ instrument=FPMA steminputs=nu40301005004 outdir=./src srcregionfile=./regB_004A.reg  extended=yes rungrppha=yes grpmincounts=30 bkgextract=no stemout=regB_004A grpphafile=regB_004A_grp.pha vignfile=CALDB vignflag=yes
+nuproducts indir=./ instrument=FPMA steminputs=nu40301005004 outdir=./src srcregionfile=./regC_004A.reg extended=yes rungrppha=yes grpmincounts=30 bkgextract=no stemout=regC_004A grpphafile=regC_004A_grp.pha vignfile=CALDB vignflag=yes
+
+nuproducts indir=./ instrument=FPMB steminputs=nu40301005004 outdir=./src srcregionfile=./regA_004B.reg  extended=yes rungrppha=yes grpmincounts=30 bkgextract=no stemout=regA_004B grpphafile=regA_004B_grp.pha vignfile=CALDB vignflag=yes
+
+
+
+
+
+#### BURRISNAKI ###
+
+nuproducts indir=./ instrument=FPMA steminputs=nu40301005002 outdir=./src srcregionfile=./regA_002A.reg extended=yes rungrppha=yes grpmincounts=30 bkgextract=no stemout=regA_002A grpphafile=regA_002A_grp.pha vignfile=CALDB vignflag=yes
+nuproducts indir=./ instrument=FPMA steminputs=nu40301005002 outdir=./src srcregionfile=./regB_002A.reg   extended=yes rungrppha=yes grpmincounts=30 bkgextract=no stemout=regB_002A grpphafile=regB_002A_grp.pha vignfile=CALDB vignflag=yes
+nuproducts indir=./ instrument=FPMA steminputs=nu40301005002 outdir=./src srcregionfile=./regC_002A.reg   extended=yes rungrppha=yes grpmincounts=30 bkgextract=no stemout=regC_002A grpphafile=regC_002A_grp.pha vignfile=CALDB vignflag=yes
+
+nuproducts indir=./ instrument=FPMB steminputs=nu40301005002 outdir=./src srcregionfile=./regA_002B.reg extended=yes rungrppha=yes grpmincounts=30 bkgextract=no stemout=regA_002B grpphafile=regA_002B_grp.pha vignfile=CALDB vignflag=yes
+
+
+nuproducts indir=./ instrument=FPMA steminputs=nu40301005004 outdir=./src srcregionfile=./regA_004A.reg  extended=yes rungrppha=yes grpmincounts=30 bkgextract=no stemout=regA_004A grpphafile=regA_004A_grp.pha vignfile=CALDB vignflag=yes
+nuproducts indir=./ instrument=FPMA steminputs=nu40301005004 outdir=./src srcregionfile=./regB_004A.reg  extended=yes rungrppha=yes grpmincounts=30 bkgextract=no stemout=regB_004A grpphafile=regB_004A_grp.pha vignfile=CALDB vignflag=yes
+nuproducts indir=./ instrument=FPMA steminputs=nu40301005004 outdir=./src srcregionfile=./regC_004A.reg extended=yes rungrppha=yes grpmincounts=30 bkgextract=no stemout=regC_004A grpphafile=regC_004A_grp.pha vignfile=CALDB vignflag=yes
+
+nuproducts indir=./ instrument=FPMB steminputs=nu40301005004 outdir=./src srcregionfile=./regA_004B.reg  extended=yes rungrppha=yes grpmincounts=30 bkgextract=no stemout=regA_004B grpphafile=regA_004B_grp.pha vignfile=CALDB vignflag=yes
+
+
+
+
+
+####### SIMULATED BGD SPECTRA #######
+
+nuskybgd_spec,dir,obsid,'regA_002A.reg','src','bgdspec','A','bgd', specname='regA_002A_grp.pha'
+nuskybgd_spec,dir,obsid,'regB_002A.reg','src','bgdspec','A','bgd', specname='regB_002A_grp.pha'
+nuskybgd_spec,dir,obsid,'regC_002A.reg','src','bgdspec','A','bgd', specname='regC_002A_grp.pha'
+
+nuskybgd_spec,dir,obsid,'regA_002B.reg','src','bgdspec','B','bgd', specname='regA_002B_grp.pha'
+
+nuskybgd_spec,dir,obsid,'regA_004A.reg','src','bgdspec','A','bgd', specname='regA_004A_grp.pha'
+nuskybgd_spec,dir,obsid,'regB_004A.reg','src','bgdspec','A','bgd', specname='regB_004A_grp.pha'
+nuskybgd_spec,dir,obsid,'regC_004A.reg','src','bgdspec','A','bgd', specname='regC_004A_grp.pha'
+
+nuskybgd_spec,dir,obsid,'regA_004B.reg','src','bgdspec','B','bgd', specname='regA_004B_grp.pha'
+
+
+
+
+
+
+
+
+

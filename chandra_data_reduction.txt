@@ -1,0 +1,54 @@
+
+download_chandra_obsid 13748,15611,15610,1993
+chandra_repro 13748,15610,15611,1993 outdir= set_ardlib=no
+#punlearn ardlib
+#acis_set_ardlib /home/padialjr/Desktop/research/reduced_regions/chandra/15610/repro/acisf15610_repro_bpix1.fits
+#acis_set_ardlib /home/padialjr/Desktop/research/reduced_regions/chandra/1993/repro/acisf01993_repro_bpix1.fits
+#acis_set_ardlib /home/padialjr/Desktop/research/reduced_regions/chandra/13748/repro/acisf13748_repro_bpix1.fits
+#acis_set_ardlib /home/padialjr/Desktop/research/reduced_regions/chandra/15611/repro/acisf15611_repro_bpix1.fits
+#punlearn reproject_obs
+#reproject_obs 13748,15610,15611,1993 /home/padialjr/Desktop/research/reduced_regions/chandra refcoord=/home/padialjr/#Desktop/research/reduced_regions/chandra/1993/repro/acisf01993_repro_evt2.fits
+#punlearn merge_obs
+#merge_obs "/home/padialjr/Desktop/research/reduced_regions/chandra/*/repro/*evt*[ccd_id=2:9]" /home/padialjr/Desktop/#research/reduced_regions/chandra/merge_obs bands=broad,csc
+
+
+punlearn specextract
+#1993
+pset specextract infile="/home/padialjr/Desktop/research/reduced_regions/chandra/1993/repro/acisf01993_repro_evt2.fits[sky=region(/home/padialjr/Desktop/research/reduced_regions/regions/regB_1993.reg)]"
+pset specextract bkgfile="/home/padialjr/Desktop/research/reduced_regions/chandra/1993/repro/acisf01993_repro_evt2.fits[sky=region(/home/padialjr/Desktop/research/reduced_regions/regions/bgd_chandra.reg)]"
+pset specextract outroot=/home/padialjr/Desktop/research/reduced_regions/chandra/spectra/regB_1993
+specextract mode=h
+pset specextract infile="/home/padialjr/Desktop/research/reduced_regions/chandra/1993/repro/acisf01993_repro_evt2.fits[sky=region(/home/padialjr/Desktop/research/reduced_regions/regions/regC_1993.reg)]"
+pset specextract bkgfile="/home/padialjr/Desktop/research/reduced_regions/chandra/1993/repro/acisf01993_repro_evt2.fits[sky=region(/home/padialjr/Desktop/research/reduced_regions/regions/bgd_chandra.reg)]"
+pset specextract outroot=/home/padialjr/Desktop/research/reduced_regions/chandra/spectra/regC_1993
+specextract mode=h
+#13748
+pset specextract infile="/home/padialjr/Desktop/research/reduced_regions/chandra/13748/repro/acisf13748_repro_evt2.fits[sky=region(/home/padialjr/Desktop/research/reduced_regions/regions/regB_13748.reg)]"
+pset specextract bkgfile="/home/padialjr/Desktop/research/reduced_regions/chandra/13748/repro/acisf13748_repro_evt2.fits[sky=region(/home/padialjr/Desktop/research/reduced_regions/regions/bgd_chandra.reg)]"
+pset specextract outroot=/home/padialjr/Desktop/research/reduced_regions/chandra/spectra/regB_13748
+specextract mode=h
+pset specextract infile="/home/padialjr/Desktop/research/reduced_regions/chandra/13748/repro/acisf13748_repro_evt2.fits[sky=region(/home/padialjr/Desktop/research/reduced_regions/regions/regC_13748.reg)]"
+pset specextract bkgfile="/home/padialjr/Desktop/research/reduced_regions/chandra/13748/repro/acisf13748_repro_evt2.fits[sky=region(/home/padialjr/Desktop/research/reduced_regions/regions/bgd_chandra.reg)]"
+pset specextract outroot=/home/padialjr/Desktop/research/reduced_regions/chandra/spectra/regC_13748
+specextract mode=h
+#15610
+pset specextract infile="/home/padialjr/Desktop/research/reduced_regions/chandra/15610/repro/acisf15610_repro_evt2.fits[sky=region(/home/padialjr/Desktop/research/reduced_regions/regions/regB_15610.reg)]"
+pset specextract bkgfile="/home/padialjr/Desktop/research/reduced_regions/chandra/15610/repro/acisf15610_repro_evt2.fits[sky=region(/home/padialjr/Desktop/research/reduced_regions/regions/bgd_chandra.reg)]"
+pset specextract outroot=/home/padialjr/Desktop/research/reduced_regions/chandra/spectra/regB_15610
+specextract mode=h
+pset specextract infile="/home/padialjr/Desktop/research/reduced_regions/chandra/15610/repro/acisf15610_repro_evt2.fits[sky=region(/home/padialjr/Desktop/research/reduced_regions/regions/regC_15610.reg)]"
+pset specextract bkgfile="/home/padialjr/Desktop/research/reduced_regions/chandra/15610/repro/acisf15610_repro_evt2.fits[sky=region(/home/padialjr/Desktop/research/reduced_regions/regions/bgd_chandra.reg)]"
+pset specextract outroot=/home/padialjr/Desktop/research/reduced_regions/chandra/spectra/regC_15610
+specextract mode=h
+#15611
+pset specextract infile="/home/padialjr/Desktop/research/reduced_regions/chandra/15611/repro/acisf15611_repro_evt2.fits[sky=region(/home/padialjr/Desktop/research/reduced_regions/regions/regB_15611.reg)]"
+pset specextract bkgfile="/home/padialjr/Desktop/research/reduced_regions/chandra/15611/repro/acisf15611_repro_evt2.fits[sky=region(/home/padialjr/Desktop/research/reduced_regions/regions/bgd_chandra.reg)]"
+pset specextract outroot=/home/padialjr/Desktop/research/reduced_regions/chandra/spectra/regB_15611
+specextract mode=h
+pset specextract infile="/home/padialjr/Desktop/research/reduced_regions/chandra/15611/repro/acisf15611_repro_evt2.fits[sky=region(/home/padialjr/Desktop/research/reduced_regions/regions/regC_15611.reg)]"
+pset specextract bkgfile="/home/padialjr/Desktop/research/reduced_regions/chandra/15611/repro/acisf15611_repro_evt2.fits[sky=region(/home/padialjr/Desktop/research/reduced_regions/regions/bgd_chandra.reg)]"
+pset specextract outroot=/home/padialjr/Desktop/research/reduced_regions/chandra/spectra/regC_15611
+specextract mode=h
+
+
+
