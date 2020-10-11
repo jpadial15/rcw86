@@ -1,0 +1,38 @@
+mkdir PN
+cd PN
+export SAS_ODF=/home/padialjr/Desktop/research/reduced_regions/XMM/0110012501/odf
+cifbuild
+export SAS_CCF=./ccf.cif
+odfingest
+export SAS_ODF=./0592_0110012501_SCX00000SUM.SAS
+
+epproc
+
+mv 0592_0110012501_EPN_U002_ImagingEvts.ds U2501_PN_imageEvt.ds
+
+evselect table=U2501_PN_imageEvt.ds withimageset=yes imageset=U2501_PN_image.fits xcolumn=X ycolumn=Y imagebinning=imageSize ximagesize=600 yimagesize=600 
+
+evselect table=U2501_PN_imageEvt.ds withfilteredset=yes expression='(PATTERN <= 4)&&(PI in [300:12000])&&#XMMEA_EP' filteredset=U2501_PN_filt.ds filtertype=expression keepfilteroutput=yes updateexposure=yes filterexposure=yes
+
+evselect table=U2501_PN_imageEvt.ds withrateset=yes rateset=U2501_PN_lightcrv.fits maketimecolumn=yes timecolumn=TIME timebinsize=100 makeratecolumn=yes
+
+tabgtigen table=U2501_PN_lightcrv.fits gtiset=U2501_PN_gtiset.fits timecolumn=TIME  expression='(TIME <= 1.63169e8) &&!(TIME IN [1.63162e8:1.63164e8])' 
+
+evselect table=U2501_PN_filt.ds withfilteredset=yes expression='GTI(U2501_PN_gtiset.fits,TIME)' filteredset=U2501_PN_filt_time.fits  filtertype=expression keepfilteroutput=yes updateexposure=yes filterexposure=yes 
+
+atthkgen atthkset=attitude.fits timestep=1
+
+evselect table=U2501_PN_filt_time.fits imagebinning=binSize imageset=U2501_PN_300eV_12keV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EP && (PI in [300:12000]) && (PATTERN in [0:4]) && (FLAG==0)' 
+
+evselect table=U2501_PN_filt_time.fits imagebinning=binSize imageset=U2501_PN_300eV_500eV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EP && (PI in [300:500]) && (PATTERN in [0:4]) && (FLAG==0)' 
+
+evselect table=U2501_PN_filt_time.fits imagebinning=binSize imageset=U2501_PN_500eV_1keV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EP && (PI in [500:1000]) && (PATTERN in [0:4]) && (FLAG==0)' 
+
+evselect table=U2501_PN_filt_time.fits imagebinning=binSize imageset=U2501_PN_1keV_2keV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EP && (PI in [1000:2000]) && (PATTERN in [0:4]) && (FLAG==0)' 
+
+evselect table=U2501_PN_filt_time.fits imagebinning=binSize imageset=U2501_PN_2keV_4500eV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EP && (PI in [2000:4500]) && (PATTERN in [0:4]) && (FLAG==0)' 
+
+evselect table=U2501_PN_filt_time.fits imagebinning=binSize imageset=U2501_PN_4500eV_12keV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EP && (PI in [4500:12000]) && (PATTERN in [0:4]) && (FLAG==0)' 
+
+#edetect_chain imagesets='"U2501_PN_300eV_500eV_image.fits" "U2501_PN_500eV_1keV_image.fits" "U2501_PN_1keV_2keV_image.fits" "U2501_PN_2keV_4500eV_image.fits" #"U2501_PN_4500eV_12keV_image.fits"' eventsets=U2501_PN_filt_time.fits attitudeset=attitude.fits pimin='300 500 1000 2000 4500' pimax='500 1000 2000 4500 12000' #ecf='8.3696 7.8681 5.7673 1.929 0.5764' eboxl_list='U2501_PN_eboxlist_l.fits' eboxm_list='U2501_PN_eboxlist_m.fits' esp_nsplinenodes=16 #eml_list='U2501_PN_emllist.fits' esen_mlmin=15 
+

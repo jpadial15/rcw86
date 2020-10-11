@@ -1,0 +1,100 @@
+mkdir MOS2
+cd MOS2
+export SAS_ODF=/home/padialjr/Desktop/research/reduced_regions/XMM/0110010501/odf
+cifbuild
+export SAS_CCF=./ccf.cif
+odfingest
+export SAS_ODF=./0309_0110010501_SCX00000SUM.SAS
+
+emproc &
+
+wait
+
+
+mv 0309_0110010501_EMOS2_S004_ImagingEvts.ds S0501_MOS2_imageEvt.ds 
+mv 0309_0110010501_EMOS2_U002_ImagingEvts.ds U0501_MOS2_imageEvt.ds 
+
+stop
+
+evselect table=S0501_MOS2_imageEvt.ds withimageset=yes imageset=S0501_MOS2_image.fits xcolumn=X ycolumn=Y imagebinning=imageSize ximagesize=600 yimagesize=600 &
+evselect table=U0501_MOS2_imageEvt.ds withimageset=yes imageset=U0501_MOS2_image.fits xcolumn=X ycolumn=Y imagebinning=imageSize ximagesize=600 yimagesize=600 &
+
+wait
+
+
+evselect table=S0501_MOS2_imageEvt.ds withfilteredset=yes expression='(PATTERN <= 12)&&(PI in [200:12000])&&#XMMEA_EM' filteredset=S0501_MOS2_filt.ds filtertype=expression keepfilteroutput=yes updateexposure=yes filterexposure=yes &
+
+evselect table=U0501_MOS2_imageEvt.ds withfilteredset=yes expression='(PATTERN <= 12)&&(PI in [200:12000])&&#XMMEA_EM' filteredset=U0501_MOS2_filt.ds filtertype=expression keepfilteroutput=yes updateexposure=yes filterexposure=yes &
+
+wait
+
+evselect table=S0501_MOS2_imageEvt.ds withrateset=yes rateset=S0501_MOS2_lightcrv.fits maketimecolumn=yes timecolumn=TIME timebinsize=100 makeratecolumn=yes &
+evselect table=U0501_MOS2_imageEvt.ds withrateset=yes rateset=U0501_MOS2_lightcrv.fits maketimecolumn=yes timecolumn=TIME timebinsize=100 makeratecolumn=yes &
+
+wait 
+
+
+tabgtigen table=S0501_MOS2_lightcrv.fits gtiset=S0501_MOS2_gtiset.fits timecolumn=TIME  expression='(TIME <= 1.4444e8) &&!(TIME IN [1.444e8:1.444e8])' 
+evselect table=S0501_MOS2_filt.ds withfilteredset=yes expression='GTI(S0501_MOS2_gtiset.fits,TIME)' filteredset=S0501_MOS2_filt_time.fits  filtertype=expression keepfilteroutput=yes updateexposure=yes filterexposure=yes 
+
+tabgtigen table=U0501_MOS2_lightcrv.fits gtiset=U0501_MOS2_gtiset.fits timecolumn=TIME  expression='(TIME <= 1.44452e8) &&!(TIME IN [1.44447e+08])'
+evselect table=U0501_MOS2_filt.ds withfilteredset=yes expression='GTI(U0501_MOS2_gtiset.fits,TIME)' filteredset=U0501_MOS2_filt_time.fits  filtertype=expression keepfilteroutput=yes updateexposure=yes filterexposure=yes 
+
+
+wait
+
+
+atthkgen atthkset=attitude.fits timestep=1 &
+
+
+wait
+
+evselect table=S0501_MOS2_filt_time.fits imagebinning=binSize imageset=S0501_MOS2_200eV_12keV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [200:12000]) && (PATTERN in [0:12]) && (FLAG==0)' &
+
+evselect table=S0501_MOS2_filt_time.fits imagebinning=binSize imageset=S0501_MOS2_200eV_500eV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [200:500]) && (PATTERN in [0:12]) && (FLAG==0)' &
+
+evselect table=S0501_MOS2_filt_time.fits imagebinning=binSize imageset=S0501_MOS2_500eV_1keV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM&&(PI in [500:1000])&&(PATTERN in [0:12])&&(FLAG==0)' &
+
+evselect table=S0501_MOS2_filt_time.fits imagebinning=binSize imageset=S0501_MOS2_1keV_2keV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [1000:2000]) && (PATTERN in [0:12]) && (FLAG==0)' &
+
+evselect table=S0501_MOS2_filt_time.fits imagebinning=binSize imageset=S0501_MOS2_2keV_4500eV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [2000:4500]) && (PATTERN in [0:12]) && (FLAG==0)' &
+
+evselect table=S0501_MOS2_filt_time.fits imagebinning=binSize imageset=S0501_MOS2_4500eV_12keV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [4500:12000]) && (PATTERN in [0:12]) && (FLAG==0)' &
+
+
+evselect table=U0501_MOS2_filt_time.fits imagebinning=binSize imageset=U0501_MOS2_200eV_12keV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [200:12000]) && (PATTERN in [0:12]) && (FLAG==0)' &
+
+evselect table=U0501_MOS2_filt_time.fits imagebinning=binSize imageset=U0501_MOS2_200eV_500eV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [200:500]) && (PATTERN in [0:12]) && (FLAG==0)' &
+
+evselect table=U0501_MOS2_filt_time.fits imagebinning=binSize imageset=U0501_MOS2_500eV_1keV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [500:1000]) && (PATTERN in [0:12]) && (FLAG==0)' &
+
+evselect table=U0501_MOS2_filt_time.fits imagebinning=binSize imageset=U0501_MOS2_1keV_2keV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [1000:2000]) && (PATTERN in [0:12]) && (FLAG==0)' &
+
+evselect table=U0501_MOS2_filt_time.fits imagebinning=binSize imageset=U0501_MOS2_2keV_4500eV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [2000:4500]) && (PATTERN in [0:12]) && (FLAG==0)' &
+
+evselect table=U0501_MOS2_filt_time.fits imagebinning=binSize imageset=U0501_MOS2_4500eV_12keV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [4500:12000]) && (PATTERN in [0:12]) && (FLAG==0)' &
+
+
+
+#wait 
+
+
+#edetect_chain imagesets='"S0501_MOS2_200eV_500eV_image.fits" "S0501_MOS2_500eV_1keV_image.fits" "S0501_MOS2_1keV_2keV_image.fits" #"S0501_MOS2_2keV_4500eV_image.fits" "S0501_MOS2_4500eV_12keV_image.fits"' eventsets=S0501_MOS2_filt_time.fits attitudeset=attitude.fits pimin='200 500 1000 2000 #4500' pimax='500 1000 2000 4500 12000' ecf='1.5258 1.6974 2.0058 0.7292 0.1451' eboxl_list='S0501_MOS2_eboxlist_l.fits' eboxm_list='S0501_MOS2_eboxlist_m.fits' #eml_list='S0501_MOS2_emllist.fits' esen_mlmin=15 
+
+
+#edetect_chain imagesets='"U0501_MOS2_200eV_500eV_image.fits" "U0501_MOS2_500eV_1keV_image.fits" "U0501_MOS2_1keV_2keV_image.fits" #"U0501_MOS2_2keV_4500eV_image.fits" "U0501_MOS2_4500eV_12keV_image.fits"' eventsets=U0501_MOS2_filt_time.fits attitudeset=attitude.fits pimin='200 500 1000 2000 #4500' pimax='500 1000 2000 4500 12000' ecf='1.5258 1.6974 2.0058 0.7292 0.1451' eboxl_list='U0501_MOS2_eboxlist_l.fits' eboxm_list='U0501_MOS2_eboxlist_m.fits' #eml_list='U0501_MOS2_emllist.fits' esen_mlmin=15 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

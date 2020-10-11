@@ -1,0 +1,41 @@
+mkdir MOS1
+cd MOS1
+
+export SAS_ODF=/home/padialjr/Desktop/research/reduced_regions/XMM/0504810401/odf
+cifbuild
+echo "cifbuild done *******************************************************************"
+export SAS_CCF=./ccf.cif
+odfingest
+echo "odfingest done *******************************************************************"
+export SAS_ODF=./1411_0504810401_SCX00000SUM.SAS
+
+
+emproc 
+echo "emproc done*******************************************************************"
+
+mv 1411_0504810401_EMOS1_S003_ImagingEvts.ds  S0401_MOS1_imageEvt.ds 
+
+evselect table=S0401_MOS1_imageEvt.ds withimageset=yes imageset=S0401_MOS1_image.fits xcolumn=X ycolumn=Y imagebinning=imageSize ximagesize=600 yimagesize=600 
+
+evselect table=S0401_MOS1_imageEvt.ds withfilteredset=yes expression='(PATTERN <= 12)&&(PI in [200:12000])&&#XMMEA_EM' filteredset=S0401_MOS1_filt.ds filtertype=expression keepfilteroutput=yes updateexposure=yes filterexposure=yes 
+
+evselect table=S0401_MOS1_imageEvt.ds withrateset=yes rateset=S0401_MOS1_lightcrv.fits maketimecolumn=yes timecolumn=TIME timebinsize=100 makeratecolumn=yes 
+
+tabgtigen table=S0401_MOS1_lightcrv.fits gtiset=S0401_MOS1_gtiset.fits timecolumn=TIME  expression='(TIME <= 3.04289e8) &&!(TIME IN [3.04258e8:3.0426e8]) &&!(TIME IN [3.04265e8:3.04267e8]) &&!(TIME IN [3.04268e8:3.04270e8]) &&!(TIME IN [3.04270e8:3.04289e8])'
+
+evselect table=S0401_MOS1_filt_time.fits imagebinning=binSize imageset=S0401_MOS1_200eV_12keV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [200:12000]) && (PATTERN in [0:12]) && (FLAG==0)' 
+
+evselect table=S0401_MOS1_filt_time.fits imagebinning=binSize imageset=S0401_MOS1_200eV_500eV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [200:500]) && (PATTERN in [0:12]) && (FLAG==0)' 
+
+evselect table=S0401_MOS1_filt_time.fits imagebinning=binSize imageset=S0401_MOS1_500eV_1keV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM&&(PI in [500:1000])&&(PATTERN in [0:12])&&(FLAG==0)' 
+
+evselect table=S0401_MOS1_filt_time.fits imagebinning=binSize imageset=S0401_MOS1_1keV_2keV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [1000:2000]) && (PATTERN in [0:12]) && (FLAG==0)' 
+
+evselect table=S0401_MOS1_filt_time.fits imagebinning=binSize imageset=S0401_MOS1_2keV_4500eV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [2000:4500]) && (PATTERN in [0:12]) && (FLAG==0)' 
+
+evselect table=S0401_MOS1_filt_time.fits imagebinning=binSize imageset=S0401_MOS1_4500eV_12keV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [4500:12000]) && (PATTERN in [0:12]) && (FLAG==0)' 
+
+
+atthkgen atthkset=attitude.fits timestep=1
+
+

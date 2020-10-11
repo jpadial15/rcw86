@@ -1,0 +1,43 @@
+mkdir MOS2
+cd MOS2
+export SAS_ODF=/home/padialjr/Desktop/research/reduced_regions/XMM/0110012501/odf
+cifbuild
+export SAS_CCF=./ccf.cif
+odfingest
+export SAS_ODF=./0592_0110012501_SCX00000SUM.SAS
+
+emproc 
+
+mv 0592_0110012501_EMOS2_S004_ImagingEvts.ds S2501_MOS2_imageEvt.ds
+
+evselect table=S2501_MOS2_imageEvt.ds withimageset=yes imageset=S2501_MOS2_image.fits xcolumn=X ycolumn=Y imagebinning=imageSize ximagesize=600 yimagesize=600
+
+evselect table=S2501_MOS2_imageEvt.ds withfilteredset=yes expression='(PATTERN <= 12)&&(PI in [200:12000])&&#XMMEA_EM' filteredset=S2501_MOS2_filt.ds filtertype=expression keepfilteroutput=yes updateexposure=yes filterexposure=yes
+
+evselect table=S2501_MOS2_imageEvt.ds withrateset=yes rateset=S2501_MOS2_lightcrv.fits maketimecolumn=yes timecolumn=TIME timebinsize=100 makeratecolumn=yes
+
+tabgtigen table=S2501_MOS2_lightcrv.fits gtiset=S2501_MOS2_gtiset.fits timecolumn=TIME  expression='(TIME <= 1.63169e8) &&!(TIME IN [1.63159e+08:1.6316e8]) &&! (TIME IN [1.63161e+08:1.63163e8])'
+
+evselect table=S2501_MOS2_filt.ds withfilteredset=yes expression='GTI(S2501_MOS2_gtiset.fits,TIME)' filteredset=S2501_MOS2_filt_time.fits  filtertype=expression keepfilteroutput=yes updateexposure=yes filterexposure=yes 
+
+
+atthkgen atthkset=attitude.fits timestep=1
+
+evselect table=S2501_MOS2_filt_time.fits imagebinning=binSize imageset=S2501_MOS2_200eV_12keV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [200:12000]) && (PATTERN in [0:12]) && (FLAG==0)' 
+
+evselect table=S2501_MOS2_filt_time.fits imagebinning=binSize imageset=S2501_MOS2_200eV_500eV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [200:500]) && (PATTERN in [0:12]) && (FLAG==0)' 
+
+evselect table=S2501_MOS2_filt_time.fits imagebinning=binSize imageset=S2501_MOS2_500eV_1keV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [500:1000]) && (PATTERN in [0:12]) && (FLAG==0)' 
+
+evselect table=S2501_MOS2_filt_time.fits imagebinning=binSize imageset=S2501_MOS2_1keV_2keV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [1000:2000]) && (PATTERN in [0:12]) && (FLAG==0)' 
+
+evselect table=S2501_MOS2_filt_time.fits imagebinning=binSize imageset=S2501_MOS2_2keV_4500eV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [2000:4500]) && (PATTERN in [0:12]) && (FLAG==0)' 
+
+evselect table=S2501_MOS2_filt_time.fits imagebinning=binSize imageset=S2501_MOS2_4500eV_12keV_image.fits withimageset=yes xcolumn=X ycolumn=Y ximagebinsize=40 yimagebinsize=40 expression='#XMMEA_EM && (PI in [4500:12000]) && (PATTERN in [0:12]) && (FLAG==0)' 
+
+
+
+#edetect_chain imagesets='"S2501_MOS2_200eV_500eV_image.fits" "S2501_MOS2_500eV_1keV_image.fits" "S2501_MOS2_1keV_2keV_image.fits" #"S2501_MOS2_2keV_4500eV_image.fits" "S2501_MOS2_4500eV_12keV_image.fits"' eventsets=S2501_MOS2_filt_time.fits attitudeset=attitude.fits pimin='200 500 1000 2000 #4500' pimax='500 1000 2000 4500 12000' ecf='1.5258 1.6974 2.0058 0.7292 0.1451' eboxl_list='S2501_MOS2_eboxlist_l.fits' eboxm_list='S2501_MOS2_eboxlist_m.fits' #eml_list='S2501_MOS2_emllist.fits' esen_mlmin=15 
+
+
+
