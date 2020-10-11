@@ -129,7 +129,7 @@ sudo yum -y install redhat-rpm-config
 ######
 Download HEASOFT6.26:
 
-wget http://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/release/heasoft-6.26src.tar.gz
+wget http://heasarc.gsfc.nasa.gov/FTP/software/lheasoft/release/heasoft-*src.tar.gz
 
 gunzip -c heasoft6.26(src|arch).tar.gz | tar xf -
 
