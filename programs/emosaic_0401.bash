@@ -1,0 +1,1 @@
+emosaic imagesets="S0401_PN_4keV_7500eV_image.fits  S0401_MOS1_4keV_7500eV_image.fits S0401_MOS2_4keV_7500eV_image.fits " mosaicedset=mosaic_0401_4kev_7500eV.fits withexposure=yes exposuresets="S0401_PN_4kev_7500eV_exp.fits   S0401_MOS1_4kev_7500eV_exp.fits S0401_MOS2_4kev_7500eV_exp.fits" forceuniformkwds=yes
