@@ -1,0 +1,107 @@
+export SAS_CCF=~/Desktop/research/XMM/0110010501/MOS2/ccf.cif
+export SAS_ODF=~/Desktop/research/XMM/0110010501/MOS2/0309_0110010501_SCX00000SUM.SAS
+
+
+## regA source S_MOS2
+
+evselect table=~/Desktop/research/XMM/0110010501/MOS2/S0501_MOS2_filt_time.fits withspectrumset=~/Desktop/research/reduced_regions/XMM/spectra/yes spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regA.fits energycolumn=PI spectralbinsize=5 withspecranges=yes specchannelmin=0 specchannelmax=11999 expression='#XMMEA_EM && (PATTERN<=12) && ((X,Y) IN polygon(17411.979,22372.681,17503.79,22327.035,17859.404,22673.794,18531.465,22532.524,19559.563,22503.896,19742.93,22422.796,20017.538,22545.446,20078.178,22779.661,20087.774,23095.23,20626.871,23299.798,21196.603,23449.821,21511.702,23684.552,21817.392,23512.076,22041.709,23298.741,22214.928,23207.448,22276.197,23095.58,22632.571,23035.16,22785.761,22750.447,22801.519,22564.812,22603.389,22289.249,22118.652,22031.664,22018.365,21474.29,21435.341,20933.314,20859.566,20871.178,20198.509,20564.587,19944.164,20026.756,18987.33,19595.381,18902.51,19586.734,17702.272,19562.5,17311.17,19414.008,16908.608,19418.515,16097.759,19749.66,15361.271,19507.265,14811.293,19679.306,14246.944,20530.879,14363.662,21593.732,15070.884,22578.668,15779.458,22500.836,16133.902,22343.851,16650.418,22424.959,17168.001,22265.364,17269.899,22214.671))'
+
+## regA source U_MOS2
+
+evselect table=~/Desktop/research/XMM/0110010501/MOS2/U0501_MOS2_filt_time.fits withspectrumset=~/Desktop/research/reduced_regions/XMM/spectra/yes spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regA.fits energycolumn=PI spectralbinsize=5 withspecranges=yes specchannelmin=0 specchannelmax=11999 expression='#XMMEA_EM && (PATTERN<=12) && ((X,Y) IN polygon(17091.976,22492.684,17183.792,22447.036,17539.404,22793.786,18211.468,22652.536,19239.566,22623.892,19422.934,22542.789,19697.532,22665.452,19758.174,22899.661,19767.777,23215.234,20306.868,23419.79,20876.597,23569.829,21191.708,23804.546,21497.394,23632.069,21721.702,23418.744,21894.924,23327.441,21956.196,23215.59,22312.566,23155.158,22465.767,22870.456,22481.522,22684.804,22283.393,22409.243,21798.652,22151.66,21698.364,21594.283,21115.342,21053.307,20539.564,20991.174,19878.516,20684.59,19624.159,20146.751,18667.33,19715.38,18582.512,19706.735,17382.27,19682.498,16991.167,19534.009,16588.601,19538.513,15777.761,19869.656,15041.271,19627.272,14491.288,19799.301,13926.948,20650.878,14043.66,21713.741,14750.885,22698.66,15459.455,22620.832,15813.898,22463.856,16330.418,22544.968,16847.996,22385.354,16949.893,22334.664))'
+
+## regB source S_MOS2
+
+evselect table=~/Desktop/research/XMM/0110010501/MOS2/S0501_MOS2_filt_time.fits withspectrumset=~/Desktop/research/reduced_regions/XMM/spectra/yes spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regB.fits energycolumn=PI spectralbinsize=5 withspecranges=yes specchannelmin=0 specchannelmax=11999 expression='#XMMEA_EM && (PATTERN<=12) && ((X,Y) IN polygon(24280.082,25082.277,25014.503,26387.26,25864.148,26672.188,26489.694,25539.787,25982.831,23781.819,25190.494,23156.894,25418.982,22193.782,23944.411,21908.514,22981.927,22132.617,22696.971,22982.268,23998.271,24231.582))'
+
+
+## regB source U_MOS2
+
+evselect table=~/Desktop/research/XMM/0110010501/MOS2/U0501_MOS2_filt_time.fits withspectrumset=~/Desktop/research/reduced_regions/XMM/spectra/yes spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regB.fits energycolumn=PI spectralbinsize=5 withspecranges=yes specchannelmin=0 specchannelmax=11999 expression='#XMMEA_EM && (PATTERN<=12) && ((X,Y) IN polygon(24232.082,24890.277,24966.503,26195.26,25816.148,26480.188,26441.694,25347.787,25934.831,23589.819,25142.494,22964.894,25370.982,22001.782,23896.411,21716.514,22933.927,21940.617,22648.971,22790.268,23950.271,24039.582))'
+
+## regC source S_MOS2
+
+evselect table=~/Desktop/research/XMM/0110010501/MOS2/S0501_MOS2_filt_time.fits withspectrumset=~/Desktop/research/reduced_regions/XMM/spectra/yes spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regC.fits energycolumn=PI spectralbinsize=5 withspecranges=yes specchannelmin=0 specchannelmax=11999 expression='#XMMEA_EM && (PATTERN<=12) && ((X,Y) IN polygon(25990.733,23579.291,26440.644,23643.379,26829.476,23615.818,26970.69,23693.836,27337.616,23710.072,27422.586,23414.736,27651.94,23135.327,27574.345,22920.767,27587.46,22705.397,27566.834,22401.412,27390.807,22019.376,26952.702,21947.863,26584.626,22229.942,26167.343,22356.382,26025.416,22653.03,25840.574,22884.167))'
+
+
+## regC source U_MOS2
+
+evselect table=~/Desktop/research/XMM/0110010501/MOS2/U0501_MOS2_filt_time.fits withspectrumset=~/Desktop/research/reduced_regions/XMM/spectra/yes spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regC.fits energycolumn=PI spectralbinsize=5 withspecranges=yes specchannelmin=0 specchannelmax=11999 expression='#XMMEA_EM && (PATTERN<=12) && ((X,Y) IN polygon(25750.733,23435.291,26200.644,23499.379,26589.476,23471.818,26730.69,23549.836,27097.616,23566.072,27182.586,23270.736,27411.94,22991.327,27334.345,22776.767,27347.46,22561.397,27326.834,22257.412,27150.807,21875.376,26712.702,21803.863,26344.626,22085.942,25927.343,22212.382,25785.416,22509.03,25600.574,22740.167))'
+
+
+## bgd 0501 SMOS2
+evselect table=~/Desktop/research/XMM/0110010501/MOS2/S0501_MOS2_filt_time.fits withspectrumset=~/Desktop/research/reduced_regions/XMM/spectra/yes spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_Bgd.fits energycolumn=PI spectralbinsize=5 withspecranges=yes specchannelmin=0 specchannelmax=11999 expression='#XMMEA_EM && (PATTERN<=12) && ((X,Y) IN circle(31521.106,15446.328,2891.9405))'
+
+## bgd 0501 UMOS2
+evselect table=~/Desktop/research/XMM/0110010501/MOS2/U0501_MOS2_filt_time.fits withspectrumset=~/Desktop/research/reduced_regions/XMM/spectra/yes spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_Bgd.fits energycolumn=PI spectralbinsize=5 withspecranges=yes specchannelmin=0 specchannelmax=11999 expression='#XMMEA_EM && (PATTERN<=12) && ((X,Y) IN circle(35226.507,16919.3,2891.9405))'
+
+
+# calc area of src and bgd##
+
+#S0501 MOS2 
+backscale spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regA.fits badpixlocation=~/Desktop/research/XMM/0110010501/MOS2/S0501_MOS2_filt_time.fits #regA
+backscale spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regB.fits badpixlocation=~/Desktop/research/XMM/0110010501/MOS2/S0501_MOS2_filt_time.fits #regB
+backscale spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regC.fits badpixlocation=~/Desktop/research/XMM/0110010501/MOS2/S0501_MOS2_filt_time.fits #regC
+backscale spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_Bgd.fits badpixlocation=~/Desktop/research/XMM/0110010501/MOS2/S0501_MOS2_filt_time.fits  #bgd s0501 MOS2
+
+#U0501 MOS2 
+
+backscale spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regA.fits badpixlocation=~/Desktop/research/XMM/0110010501/MOS2/U0501_MOS2_filt_time.fits #regA
+backscale spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regB.fits badpixlocation=~/Desktop/research/XMM/0110010501/MOS2/U0501_MOS2_filt_time.fits #regB
+backscale spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regC.fits badpixlocation=~/Desktop/research/XMM/0110010501/MOS2/U0501_MOS2_filt_time.fits #regC
+backscale spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_Bgd.fits badpixlocation=~/Desktop/research/XMM/0110010501/MOS2/U0501_MOS2_filt_time.fits  #bgd s0501 MOS2
+
+
+
+#### GENERATE REDISTRIBUTION MATRIX ####
+
+# rmf S0501 MOS2
+rmfgen spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regA.fits rmfset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regA.rmf
+rmfgen spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regB.fits rmfset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regB.rmf
+rmfgen spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regC.fits rmfset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regC.rmf
+rmfgen spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_Bgd.fits rmfset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_Bgd.rmf
+
+# rmf U0501 MOS2
+rmfgen spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regA.fits rmfset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regA.rmf
+rmfgen spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regB.fits rmfset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regB.rmf
+rmfgen spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regC.fits rmfset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regC.rmf
+rmfgen spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_Bgd.fits rmfset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_Bgd.rmf
+
+
+
+# GENERATE ARF 
+
+#S0501 MOS2 ARF
+
+arfgen spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regA.fits arfset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regA.arf withrmfset=yes rmfset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regA.rmf badpixlocation=~/Desktop/research/XMM/0110010501/MOS2/S0501_MOS2_filt_time.fits detmaptype=flat extendedsource=yes 
+arfgen spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regB.fits arfset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regB.arf withrmfset=yes rmfset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regB.rmf badpixlocation=~/Desktop/research/XMM/0110010501/MOS2/S0501_MOS2_filt_time.fits detmaptype=flatextendedsource=yes 
+arfgen spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regC.fits arfset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regC.arf withrmfset=yes rmfset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regC.rmf badpixlocation=~/Desktop/research/XMM/0110010501/MOS2/S0501_MOS2_filt_time.fits detmaptype=flat extendedsource=yes 
+
+
+#U0501 MOS2 ARF
+
+arfgen spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regA.fits arfset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regA.arf withrmfset=yes rmfset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regA.rmf badpixlocation=~/Desktop/research/XMM/0110010501/MOS2/U0501_MOS2_filt_time.fits detmaptype=flat extendedsource=yes 
+arfgen spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regB.fits arfset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regB.arf withrmfset=yes rmfset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regB.rmf badpixlocation=~/Desktop/research/XMM/0110010501/MOS2/U0501_MOS2_filt_time.fits detmaptype=flat extendedsource=yes 
+arfgen spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regC.fits arfset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regC.arf withrmfset=yes rmfset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regC.rmf badpixlocation=~/Desktop/research/XMM/0110010501/MOS2/U0501_MOS2_filt_time.fits detmaptype=flat extendedsource=yes 
+
+
+## S0501 MOS2 
+specgroup spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regA.fits arfset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regA.arf rmfset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regA.rmf backgndset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_Bgd.fits groupedset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regA_sr.fits
+specgroup spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regB.fits arfset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regB.arf rmfset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regB.rmf backgndset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_Bgd.fits groupedset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regB_sr.fits
+specgroup spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regC.fits arfset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regC.arf rmfset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regC.rmf backgndset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_Bgd.fits groupedset=~/Desktop/research/reduced_regions/XMM/spectra/S0501_MOS2_regC_sr.fits
+
+
+## U0501 MOS2 
+specgroup spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regA.fits arfset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regA.arf rmfset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regA.rmf backgndset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_Bgd.fits groupedset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regA_sr.fits
+specgroup spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regB.fits arfset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regB.arf rmfset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regB.rmf backgndset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_Bgd.fits groupedset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regB_sr.fits
+specgroup spectrumset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regC.fits arfset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regC.arf rmfset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regC.rmf backgndset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_Bgd.fits groupedset=~/Desktop/research/reduced_regions/XMM/spectra/U0501_MOS2_regC_sr.fits
+
+
+
+
+
+
+
+
+
+
