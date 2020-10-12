@@ -13,10 +13,8 @@ dependencies:
     - requests
     - astropy
     - anaconda
-    - numpy
     - pandas
     - bs4
-    - scipy
     - sklearn
     - seaborn
     - sunpy
@@ -25,7 +23,6 @@ dependencies:
     - datetime
     - jupyter_contrib_nbextensions
     - IPython
-    - scipy
     - git+https://github.com/i4Ds/IRISreader.git@master
     - jupyterlab
     - jupyterlab-git
